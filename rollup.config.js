@@ -9,11 +9,11 @@ export default [
     input: './src/index.js',
     output: [
       {
-        file: 'dist/index.js',
+        file: 'dist/bundle/cjs/react-bootstrap-chat-ui.min.js',
         format: 'cjs',
       },
       {
-        file: 'dist/index.es.js',
+        file: 'dist/bundle/esm/react-bootstrap-chat-ui.min.js',
         format: 'es',
         exports: 'named',
       },
