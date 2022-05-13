@@ -1,0 +1,31 @@
+.flex-1 {
+    flex: 1;
+}
+
+.message-list {
+    min-width: 140px;
+}
+
+.chat-list {
+    min-width: 105px;
+    width: 105px;
+    border-right: 1px solid lightgray;
+}
+
+@media (min-width: 576px) {
+    .chat-list {
+        width: 200px;
+    }
+}
+
+@media (min-width: 768px) {
+    .chat-list {
+        width: 320px;
+    }
+}
+
+@media (min-width: 992px) {
+    .chat-list {
+        width: 400px;
+    }
+}

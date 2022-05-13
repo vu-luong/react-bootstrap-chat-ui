@@ -1,0 +1,43 @@
+.w-40px {
+    width: 40px;
+}
+
+.h-40px {
+    height: 40px;
+}
+
+.w-50px {
+    width: 50px;
+}
+
+.h-50px {
+    height: 50px;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.bg-light-blue {
+    background: #d0dfeb;
+}
+
+.white-space-nowrap {
+    white-space: nowrap;
+}
+
+.text-overflow-ellipsis {
+    text-overflow: ellipsis;
+}
+
+.fs-100rem {
+    font-size: 1rem;
+}
+
+.fs-80rem {
+    font-size: 0.8rem;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

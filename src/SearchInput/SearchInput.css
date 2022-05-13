@@ -1,0 +1,11 @@
+.ezychat-search-input--input {
+    border-bottom-left-radius: 0.25rem !important;
+    border-top-left-radius: 0.25rem !important;
+}
+
+@media (min-width: 576px) {
+    .ezychat-search-input--input {
+        border-bottom-left-radius: 0 !important;
+        border-top-left-radius: 0 !important;
+    }
+}
