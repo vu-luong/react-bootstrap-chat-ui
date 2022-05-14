@@ -4,7 +4,7 @@ module.exports = (api) => {
     [
       '@babel/env',
       {
-        'modules': false,
+        modules: false,
       },
     ], '@babel/preset-react'];
   const plugins = ['@babel/proposal-object-rest-spread'];

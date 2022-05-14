@@ -20,6 +20,7 @@ function App() {
   };
 
   const onSend = (message) => {
+    // eslint-disable-next-line no-console
     console.log(`onSend(${message})`);
   };
 
