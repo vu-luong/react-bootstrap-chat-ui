@@ -1,6 +1,6 @@
 {
   "name": "react-bootstrap-chat-ui",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "UIkit for chat application using react and bootstrap",
   "main": "dist/bundle/cjs/react-bootstrap-chat-ui.min.js",
   "module": "dist/esm/index.js",
