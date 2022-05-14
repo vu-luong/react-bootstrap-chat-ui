@@ -1,6 +1,6 @@
 # React Bootstrap Chat UI
 
-A collection of UI components to build a chat application
+A collection of responsive UI components to build a chat application
 
 <img src="./example/example.png">
 
