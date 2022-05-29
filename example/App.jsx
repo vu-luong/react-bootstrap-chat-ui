@@ -14,14 +14,135 @@ import './App.css';
 
 function App() {
   const [activeChannelId, setActiveChannelId] = useState(0);
+  const [triggerScrollToBottom, setTriggerScrollToBottom] = useState(false);
+  const [messagesModel, setMessagesModel] = useState([
+    {
+      isMe: true,
+      message: 'This is a message',
+    },
+    {
+      isMe: false,
+      message: 'This is a reply',
+    },
+    {
+      isMe: false,
+      message: 'This is a reply',
+    },
+    {
+      isMe: false,
+      message: 'This is a reply',
+    },
+    {
+      isMe: false,
+      message: 'This is a reply',
+    },
+    {
+      isMe: false,
+      message: 'This is a reply',
+    },
+    {
+      isMe: false,
+      message: 'This is a reply',
+    },
+    {
+      isMe: false,
+      message: 'This is a reply',
+    },
+    {
+      isMe: false,
+      message: 'This is a reply',
+    },
+    {
+      isMe: false,
+      message: 'This is a reply',
+    },
+    {
+      isMe: false,
+      message: 'This is a reply',
+    },
+    {
+      isMe: false,
+      message: 'This is a reply',
+    },
+    {
+      isMe: false,
+      message: 'This is a reply',
+    },
+    {
+      isMe: false,
+      message: 'This is a reply',
+    },
+    {
+      isMe: false,
+      message: 'This is a reply',
+    },
+    {
+      isMe: false,
+      message: 'This is a reply',
+    },
+    {
+      isMe: false,
+      message: 'This is a reply',
+    },
+    {
+      isMe: false,
+      message: 'This is a reply',
+    },
+    {
+      isMe: false,
+      message: 'This is a reply',
+    },
+    {
+      isMe: false,
+      message: 'End',
+    },
+
+  ]);
 
   const onItemClick = (id) => {
     setActiveChannelId(id);
+    setTriggerScrollToBottom(!triggerScrollToBottom);
   };
 
   const onSend = (message) => {
     // eslint-disable-next-line no-console
     console.log(`onSend(${message})`);
+    setMessagesModel([
+      {
+        isMe: true,
+        message: `${message}`,
+      },
+      {
+        isMe: false,
+        message: `${message}`,
+      },
+      {
+        isMe: false,
+        message: `${message}`,
+      },
+      ...messagesModel,
+    ]);
+  };
+
+  const next = () => {
+    const message = 'new message';
+    setTimeout(() => {
+      setMessagesModel([
+        ...messagesModel,
+        {
+          isMe: true,
+          message: `${message}`,
+        },
+        {
+          isMe: false,
+          message: `${message}`,
+        },
+        {
+          isMe: false,
+          message: `${message}`,
+        },
+      ]);
+    }, 1500);
   };
 
   const channelsModel = [
@@ -36,17 +157,6 @@ function App() {
       title: 'Channel 2',
       date: '2021-12-03',
       subtitle: 'Hello, get started',
-    },
-  ];
-
-  const messagesModel = [
-    {
-      isMe: true,
-      message: 'This is a message',
-    },
-    {
-      isMe: false,
-      message: 'This is a reply',
     },
   ];
 
@@ -70,8 +180,13 @@ function App() {
         <div className="rounded-0 shadow">
           <MessageListHeader data={{ title: 'Channel Name', avatarUrl: '' }} />
         </div>
-        <div className="message-list p-3 overflow-auto flex-1">
-          <MessageList dataSource={messagesModel} />
+        <div className="message-list flex-1 mh-100 h-100 overflow-auto">
+          <MessageList
+            dataSource={messagesModel}
+            triggerScrollToBottom={triggerScrollToBottom}
+            channelId={activeChannelId}
+            next={next}
+          />
         </div>
         <ChatInput onSubmit={onSend} className="mx-3 mb-3" />
       </div>
