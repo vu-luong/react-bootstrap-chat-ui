@@ -1,12 +1,12 @@
-import React, { useRef, useState } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import React, { useEffect, useRef, useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroller';
 import PropTypes from 'prop-types';
 import MessageBubble from '../MessageBubble/MessageBubble';
 import '../style.css';
 
 function MessageList(props) {
   const {
-    dataSource, triggerScrollToBottom, next,
+    dataSource, triggerScrollToBottom, next, hasMore,
   } = props;
 
   const messagesEnd = useRef(null);
@@ -16,34 +16,38 @@ function MessageList(props) {
     messagesEnd.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
   };
 
-  if (triggerScrollToBottom !== prevTriggerScroll) {
-    scrollToBottom();
-    setPrevTriggerScroll(triggerScrollToBottom);
-  }
+  useEffect(() => {
+    if (triggerScrollToBottom !== prevTriggerScroll) {
+      scrollToBottom();
+      setPrevTriggerScroll(triggerScrollToBottom);
+    }
+  }, [triggerScrollToBottom]);
 
   return (
-    <div className="overflow-auto mh-100 p-3 d-flex flex-column-reverse" id="scrollableDiv">
-      <div ref={messagesEnd} />
+    <div className="overflow-auto mh-100 p-3 d-flex flex-column overflow-auto" id="scrollableDiv">
       <InfiniteScroll
-        dataLength={dataSource.length}
-        next={next}
-        style={{ display: 'flex', flexDirection: 'column-reverse' }}
-        inverse
-        hasMore
+        pageStart={0}
+        loadMore={next}
+        hasMore={hasMore}
+        style={{ display: 'flex', flexDirection: 'column' }}
         loader={<div className="loader" key={0}>Loading ...</div>}
-        scrollableTarget="scrollableDiv"
+        useWindow={false}
+        threshold={25}
+        initialLoad={false}
+        isReverse
       >
         {
           dataSource.map((item, i) => (
             <MessageBubble
               // eslint-disable-next-line react/no-array-index-key
-              key={i}
+              key={i + 1}
               id={i}
               data={item}
             />
           ))
         }
       </InfiniteScroll>
+      <div ref={messagesEnd} />
     </div>
   );
 }
@@ -52,12 +56,14 @@ MessageList.propTypes = {
   dataSource: PropTypes.arrayOf(MessageBubble.propTypes.data),
   triggerScrollToBottom: PropTypes.bool,
   next: PropTypes.func,
+  hasMore: PropTypes.bool,
 };
 
 MessageList.defaultProps = {
   dataSource: [],
   triggerScrollToBottom: false,
   next: null,
+  hasMore: false,
 };
 
 export default MessageList;

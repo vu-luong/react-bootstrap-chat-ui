@@ -5,6 +5,7 @@ import ChatList from '../src/ChatList/ChatList';
 import ChatInput from '../src/ChatInput/ChatInput';
 import MessageList from '../src/MessageList/MessageList';
 import MessageListHeader from '../src/MessageListHeader/MessageListHeader';
+import { messagesToAppend, initialMessages, MAX_NUM_MESSAGES } from './constants';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
@@ -15,89 +16,7 @@ import './App.css';
 function App() {
   const [activeChannelId, setActiveChannelId] = useState(0);
   const [triggerScrollToBottom, setTriggerScrollToBottom] = useState(false);
-  const [messagesModel, setMessagesModel] = useState([
-    {
-      isMe: true,
-      message: 'This is a message',
-    },
-    {
-      isMe: false,
-      message: 'This is a reply',
-    },
-    {
-      isMe: false,
-      message: 'This is a reply',
-    },
-    {
-      isMe: false,
-      message: 'This is a reply',
-    },
-    {
-      isMe: false,
-      message: 'This is a reply',
-    },
-    {
-      isMe: false,
-      message: 'This is a reply',
-    },
-    {
-      isMe: false,
-      message: 'This is a reply',
-    },
-    {
-      isMe: false,
-      message: 'This is a reply',
-    },
-    {
-      isMe: false,
-      message: 'This is a reply',
-    },
-    {
-      isMe: false,
-      message: 'This is a reply',
-    },
-    {
-      isMe: false,
-      message: 'This is a reply',
-    },
-    {
-      isMe: false,
-      message: 'This is a reply',
-    },
-    {
-      isMe: false,
-      message: 'This is a reply',
-    },
-    {
-      isMe: false,
-      message: 'This is a reply',
-    },
-    {
-      isMe: false,
-      message: 'This is a reply',
-    },
-    {
-      isMe: false,
-      message: 'This is a reply',
-    },
-    {
-      isMe: false,
-      message: 'This is a reply',
-    },
-    {
-      isMe: false,
-      message: 'This is a reply',
-    },
-    {
-      isMe: false,
-      message: 'This is a reply',
-    },
-    {
-      isMe: false,
-      message: 'End',
-    },
-
-  ]);
+  const [messagesModel, setMessagesModel] = useState(initialMessages);
 
   const onItemClick = (id) => {
     setActiveChannelId(id);
@@ -105,44 +24,25 @@ function App() {
   };
 
   const onSend = (message) => {
-    // eslint-disable-next-line no-console
-    console.log(`onSend(${message})`);
-    setMessagesModel([
-      {
-        isMe: true,
-        message: `${message}`,
-      },
-      {
-        isMe: false,
-        message: `${message}`,
-      },
-      {
-        isMe: false,
-        message: `${message}`,
-      },
-      ...messagesModel,
-    ]);
-  };
-
-  const next = () => {
-    const message = 'new message';
-    setTimeout(() => {
+    if (messagesModel.length <= 30) {
       setMessagesModel([
         ...messagesModel,
         {
           isMe: true,
-          message: `${message}`,
-        },
-        {
-          isMe: false,
-          message: `${message}`,
-        },
-        {
-          isMe: false,
-          message: `${message}`,
+          message,
         },
       ]);
-    }, 1500);
+    }
+    setTriggerScrollToBottom(!triggerScrollToBottom);
+  };
+
+  const next = () => {
+    if (messagesModel.length <= MAX_NUM_MESSAGES) {
+      setMessagesModel([
+        ...messagesToAppend,
+        ...messagesModel,
+      ]);
+    }
   };
 
   const channelsModel = [
@@ -186,6 +86,7 @@ function App() {
             triggerScrollToBottom={triggerScrollToBottom}
             channelId={activeChannelId}
             next={next}
+            hasMore={messagesModel.length <= MAX_NUM_MESSAGES}
           />
         </div>
         <ChatInput onSubmit={onSend} className="mx-3 mb-3" />
