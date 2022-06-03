@@ -15,6 +15,12 @@ function ChatInput(props) {
     }
   };
 
+  const onKeyDown = (e) => {
+    if (e.code === 'Enter') {
+      onClick();
+    }
+  };
+
   return (
     <div
       className={
@@ -46,6 +52,7 @@ function ChatInput(props) {
           aria-label="ChatInput"
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          onKeyDown={onKeyDown}
         />
         <div className="input-group-append">
           <button type="button" disabled={activeChannelId <= 0} className="btn btn-primary" onClick={onClick}>
