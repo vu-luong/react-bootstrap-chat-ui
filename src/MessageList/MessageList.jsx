@@ -13,7 +13,7 @@ function MessageList(props) {
   const [prevTriggerScroll, setPrevTriggerScroll] = useState(null);
 
   const scrollToBottom = () => {
-    messagesEnd.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    messagesEnd.current?.scrollIntoView({ block: 'nearest', inline: 'start' });
   };
 
   useEffect(() => {
